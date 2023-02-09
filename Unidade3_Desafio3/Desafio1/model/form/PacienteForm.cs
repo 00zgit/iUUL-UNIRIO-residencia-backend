@@ -1,4 +1,4 @@
-﻿using ConsultorioDB.model.interfaces;
+﻿using Consultorio.Validators;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace ConsultorioDB.view.forms
+namespace ConsultorioOdontoDB.Model.Form
 {
     public class PacienteForm : IPacienteValidavel
     {

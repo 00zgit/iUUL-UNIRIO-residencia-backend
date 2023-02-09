@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ConsultorioDB.model.interfaces;
+using Consultorio.Validators;
 
-namespace ConsultorioDB
+namespace Consultorio.View
 {
     public class ViewMenu : IMenuViewValidavel
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsultorioDB
+namespace Consultorio.View
 {
     internal static class ViewMensagens
     {

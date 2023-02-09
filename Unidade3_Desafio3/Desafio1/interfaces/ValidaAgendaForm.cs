@@ -4,8 +4,10 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Consultorio.Model;
+using Consultorio.View;
 
-namespace ConsultorioDB
+namespace Consultorio.Validators
 {
     internal class ValidaAgendaForm
     {

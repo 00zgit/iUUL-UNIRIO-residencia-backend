@@ -6,18 +6,19 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using ConsultorioDB.dao;
-using ConsultorioDB.model;
-using ConsultorioDB.view.forms;
+using Consultorio.Controller;
+using Consultorio.Model;
+using Consultorio.Validators;
+using ConsultorioOdontoDB.Model.Form;
 
-namespace ConsultorioDB
+namespace Consultorio.View
 {
     internal static class ViewCadastro
     {
         /********************************************
          *      Cadastramento de um paciente!       *
          *******************************************/
-        public static PacienteForm CadastroPaciente(PacienteForm pacienteForm, ListaPaciente listaPacientes)
+        public static PacienteForm CadastroPaciente(PacienteForm pacienteForm, PacienteDAO gerenciaPaciente)
         {
             string? entrada;
             bool v = false;
@@ -30,7 +31,7 @@ namespace ConsultorioDB
                     ViewMensagens.ExibeMensagemErroCPFCadastrado(true);
 
                 entrada = InsereCPFValido(pacienteForm);
-                v = PacienteDAO.ExistePaciente(entrada,listaPacientes.Pacientes);
+                v = gerenciaPaciente.ExistePaciente(entrada);
             } while (v);
             
             pacienteForm.CPF = entrada;
@@ -53,7 +54,7 @@ namespace ConsultorioDB
         /********************************************
          *      Agendamento de uma consulta!       *
          *******************************************/
-        public static ConsultaForm InsereDadosConsulta(ListaPaciente gerenciaPaciente, ConsultaForm consultaForm,PacienteForm pf)
+        public static ConsultaForm InsereDadosConsulta(PacienteDAO gerenciaPaciente, ConsultaForm consultaForm,PacienteForm pf)
         {
             string? entrada;
 
@@ -94,7 +95,7 @@ namespace ConsultorioDB
         /****************************************
          *    Cancelamento de uma consulta!     *
          ***************************************/
-        internal static ConsultaForm InsereDadosCancelamentoConsulta(ListaPaciente gerenciaPaciente, ConsultaForm consultaForm,PacienteForm pf)
+        internal static ConsultaForm InsereDadosCancelamentoConsulta(PacienteDAO gerenciaPaciente, ConsultaForm consultaForm,PacienteForm pf)
         {
             string? entrada;
 
@@ -179,7 +180,7 @@ namespace ConsultorioDB
             return entrada;
         }
         /* ESTA FUNÇÃO RETORNA O VALOR SE ELE FOR UM CPF && EXISTENTE */
-        public static string InsereCPFValidoExistente(ListaPaciente listaPacientes, PacienteForm pf)
+        public static string InsereCPFValidoExistente(PacienteDAO gerenciaPaciente,PacienteForm pf)
         {
             string? entrada;
             bool v = true;
@@ -190,7 +191,7 @@ namespace ConsultorioDB
 
                 entrada = InsereCPFValido(pf);
 
-                v = PacienteDAO.ExistePaciente(entrada,listaPacientes.Pacientes);
+                v = gerenciaPaciente.ExistePaciente(entrada);
             } while (!v);
 
             return entrada;

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsultorioDB
+namespace Consultorio.Model
 {
-    public class Consulta
+    internal class Consulta
     {
         public string CPF { get; private set; }
         public DateOnly DataConsulta { get; private set; }
@@ -22,9 +22,9 @@ namespace ConsultorioDB
             this.HoraFinal = h2;
         }
 
-        internal bool PossuiAgendamentoSobreposto(Agenda a)
+        internal bool PossuiAgendamentoSobreposto()
         {
-            foreach (var c in a.Consultas)
+            foreach (var c in Agenda.Consultas)
             {
                 if (c.DataConsulta == this.DataConsulta)
                 {
@@ -44,9 +44,9 @@ namespace ConsultorioDB
             return false;
         }
 
-        internal bool PossuiAgendamentoFuturo(Agenda a)
+        internal bool PossuiAgendamentoFuturo()
         {
-            foreach (var c in a.Consultas)
+            foreach (var c in Agenda.Consultas)
             {
                 if (c.CPF == this.CPF)
                 {

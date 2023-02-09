@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsultorioDB.model.interfaces
+namespace Consultorio.Validators
 {
     public interface IPacienteValidavel
     {
