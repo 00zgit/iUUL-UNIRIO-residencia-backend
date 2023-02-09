@@ -1,11 +1,10 @@
-﻿using Atividade02.Q1;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atividade02
+namespace Empresa
 {
     internal class Cliente
     {
@@ -18,12 +17,12 @@ namespace Atividade02
 
         public Cliente(ClienteForm cf)
         {
-            this.Nome = cf.Nome;
-            this.CPF = long.Parse(cf.CPF);
-            this.DataNascimento = DateTime.Parse(cf.DataNascimento);
-            this.RendaMensal = float.Parse(cf.RendaMensal);
-            this.EstadoCivil = char.Parse(cf.EstadoCivil);
-            this.QtdDependentes = int.Parse(cf.QtdDependentes);
+            Nome = cf.Nome;
+            CPF = long.Parse(cf.CPF);
+            DataNascimento = DateTime.Parse(cf.DataNascimento);
+            RendaMensal = float.Parse(cf.RendaMensal);
+            EstadoCivil = char.Parse(cf.EstadoCivil);
+            QtdDependentes = int.Parse(cf.QtdDependentes);
         }
     }
 }

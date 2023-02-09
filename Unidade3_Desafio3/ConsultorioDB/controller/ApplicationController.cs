@@ -5,17 +5,17 @@ using ConsultorioDB.view.forms;
 
 namespace ConsultorioDB
 {
-    internal static class Controller
+    internal class ApplicationController
     {
         /*******************************************
         * Criaremos a lista de Consultas e Pacientes
         * apenas uma única vez durante a execução
         * do programa.
         ******************************************/
-        internal static Agenda agenda = new();
-        internal static ListaPaciente listaPacientes = new();
+        internal Agenda agenda = new();
+        internal ListaPaciente listaPacientes = new();
 
-        public static void Start()
+        public void Start()
         {
             int escolhaMenuPrincipal;
             int? escolhaCadastroPaciente;
@@ -53,7 +53,7 @@ namespace ConsultorioDB
 
                             Paciente p = new(pacienteForm.Nome, pacienteForm.CPF, DateTime.Parse(pacienteForm.DataNascimento));
 
-                            listaPacientes.Pacientes.Add(p);
+                            listaPacientes.AdicionarPacienteNaLista(p);
 
                             ViewMensagens.ExibeMensagemCadastroPaciente();
                         }

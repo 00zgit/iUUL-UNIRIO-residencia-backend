@@ -14,5 +14,10 @@ namespace ConsultorioDB.model
         {
             Pacientes = new List<Paciente>();
         }
+
+        public void AdicionarPacienteNaLista(Paciente p)
+        {
+            Pacientes.Add(p);
+        }
     }
 }

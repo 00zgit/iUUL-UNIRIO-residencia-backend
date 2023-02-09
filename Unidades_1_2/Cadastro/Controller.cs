@@ -1,5 +1,5 @@
-﻿using Atividade02;
-using Atividade02.Q1;
+﻿using Atividade02.Q1;
+using Empresa;
 using System;
 
 static class Controller
