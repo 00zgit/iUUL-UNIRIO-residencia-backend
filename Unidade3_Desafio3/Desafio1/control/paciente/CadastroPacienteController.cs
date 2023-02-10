@@ -1,6 +1,7 @@
 ﻿using Consultorio.Model;
 using Consultorio.View;
 using ConsultorioOdontoDB.control;
+using ConsultorioOdontoDB.db;
 using ConsultorioOdontoDB.Model.Form;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace ConsultorioOdontoDB.Controller
     public class CadastroPacienteController
     {
         public ViewCadastro ViewCadastro;
+        public ContextController ContextController;
 
         public CadastroPacienteController()
         {
-            this.ViewCadastro = new();
+            ViewCadastro = new();
+            ContextController = new();
         }
 
 
@@ -24,15 +27,13 @@ namespace ConsultorioOdontoDB.Controller
         {
             ViewController.AbrirCadastroPaciente();
 
-            //dbcontext (verificar se cpf ja esta cadastrado no sist)
-            // se sim, cancelar operacao voltando para o menu.
-
-            // se não,
-            Paciente paciente = new(ViewCadastro.PacienteForm.Nome, ViewCadastro.PacienteForm.CPF, DateTime.Parse(ViewCadastro.PacienteForm.DataNascimento));
-
-            // db context (add e salvar).
-
-            ViewMensagens.ExibeMensagemCadastroPaciente();
+            if (!ContextController.ExistePaciente(ViewCadastro.PacienteForm.CPF))
+            {
+                ContextController.CadastrarPaciente(ViewCadastro.PacienteForm);
+                ViewMensagens.ExibeMensagemCadastroPaciente();
+            }
+            else
+                ViewMensagens.ExibeMensagemErroCPFCadastrado(true);
         }
     }
 }

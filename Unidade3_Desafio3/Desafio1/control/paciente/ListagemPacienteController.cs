@@ -1,5 +1,5 @@
-﻿using Consultorio.Controller;
-using Consultorio.View;
+﻿using Consultorio.View;
+using ConsultorioOdontoDB.db;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +10,22 @@ namespace ConsultorioOdontoDB.control.paciente
 {
     public class ListagemPacienteController
     {
-        public ListagemPacienteController() { }
+        public ViewCadastro ViewCadastro { get; set; }
+        public ListagemPacienteController()
+        {
+            ViewCadastro = new();
+        }
 
         public void ListagemPacienteCPF()
         {
-            gerenciaPaciente.Pacientes.Sort((a1, a2) => a1.CPF.CompareTo(a2.CPF));
-            ViewListagem.ExibeListaPacientes(gerenciaPaciente.Pacientes);
+            ContextController.ConsultarListaDePacientes();
+            //ordenar e mandar pra view
         }
 
         public void ListagemPacienteNome()
         {
-            gerenciaPaciente.Pacientes.Sort((a1, a2) => a1.Nome.CompareTo(a2.Nome));
-            ViewListagem.ExibeListaPacientes(gerenciaPaciente.Pacientes);
+            ContextController.ConsultarListaDePacientes();
+            //ordenar e mandar pra view
         }
     }
 }
