@@ -9,7 +9,7 @@ using Consultorio.View;
 
 namespace Consultorio.Validators
 {
-    internal class ValidaAgendaForm
+    public static class ValidaAgendaForm
     {
         private static readonly List<string> Horas = new()
         {
@@ -29,9 +29,8 @@ namespace Consultorio.Validators
          * 1 p/ INICIAL
          * 2 p/ FINAL
          ***********************/
-        internal static bool ValidaHora(string? entrada,int s)
+        public static bool ValidaHora(string entrada,int s)
         {
-            if (entrada == null) return false;
             if (!HoraExistente(entrada)) return false;
 
             switch (s)
@@ -104,9 +103,8 @@ namespace Consultorio.Validators
         /***********************/
         /* VALIDAÇÃO DE DATAS */
         /***********************/
-        internal static bool DataValida(string? entrada)
+        public static bool DataValida(string entrada)
         {
-            if (entrada == null) return false;
             if (!ValidaData(entrada)) return false;
 
             return true;
@@ -124,7 +122,7 @@ namespace Consultorio.Validators
             return true;
         }
 
-        internal static bool ValidaDataConsulta(string? entrada)
+        public static bool ValidaDataConsulta(string entrada)
         {
             if (!DataValida(entrada))
             {
@@ -147,7 +145,7 @@ namespace Consultorio.Validators
         }
 
         /* Verificar se a hora final é anterior à hora inicial */
-        internal static bool HoraValida(string horaInicial, string horaFinal)
+        public static bool HoraValida(string horaInicial, string horaFinal)
         {
             if (int.Parse(horaFinal.Substring(0, 2)) < int.Parse(horaInicial.Substring(0, 2)))
                 return false;

@@ -14,5 +14,11 @@ namespace ConsultorioOdontoDB.control
             ViewCadastro vc = new();
             vc.CadastroPaciente();
         }
+
+        internal static void AbrirRemocaoPaciente()
+        {
+            ViewCadastro vc = new();
+            vc.InsereCPFValido();
+        }
     }
 }

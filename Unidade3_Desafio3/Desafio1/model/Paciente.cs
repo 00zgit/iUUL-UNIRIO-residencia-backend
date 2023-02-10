@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Consultorio.Model
 {
-    internal class Paciente : IPacienteValidavel
+    internal class Paciente
     {
         public string Nome { get; private set; }
         public string CPF { get; private set; }

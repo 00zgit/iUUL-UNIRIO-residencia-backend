@@ -1,5 +1,4 @@
-﻿using Consultorio.Controller;
-using Consultorio.View;
+﻿using Consultorio.View;
 using ConsultorioOdontoDB.Model.Form;
 using System;
 using System.Collections.Generic;
@@ -11,23 +10,22 @@ namespace ConsultorioOdontoDB.control.paciente
 {
     public class RemocaoPacienteController
     {
-        public RemocaoPacienteController() { }
+        public ViewCadastro ViewCadastro { get; set; }
+
+        public RemocaoPacienteController()
+        {
+            ViewCadastro = new();
+        }
+
 
         public void RemocaoPaciente()
         {
-            PacienteForm pf = new();
-            var cpfRemover = ViewCadastro.InsereCPFValidoExistente(gerenciaPaciente, pf); // Inserir um CPF.
+            ViewController.AbrirRemocaoPaciente();
 
-            try
-            {
-                gerenciaPaciente.RemovePaciente(cpfRemover);
-            }
-            catch
-            {
-                ViewMensagens.ExibeMensagemRemocaoPaciente(false);
-                break;
-            }
+            //dbcontext where cpf == ViewCadastro.Entrada
             ViewMensagens.ExibeMensagemRemocaoPaciente(true);
+
+            // se não...
         }
     }
 }

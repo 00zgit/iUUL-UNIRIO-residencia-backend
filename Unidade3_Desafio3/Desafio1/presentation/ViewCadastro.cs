@@ -6,10 +6,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Consultorio.Controller;
 using Consultorio.Model;
 using Consultorio.Validators;
 using ConsultorioOdontoDB.Model.Form;
+using ConsultorioOdontoDB.validators;
 
 namespace Consultorio.View
 {
@@ -17,6 +17,8 @@ namespace Consultorio.View
     {
         public PacienteForm PacienteForm { get; set; }
         public ConsultaForm ConsultaForm { get; set; }
+
+        public string Entrada { get; set; }
 
         public ViewCadastro() { }
 
@@ -27,41 +29,39 @@ namespace Consultorio.View
         public void CadastroPaciente()
         {
             PacienteForm = new();
-            string entrada;
+            
 
             /* CPF */
-            entrada = InsereCPFValido();
-            PacienteForm.CPF = entrada;
+            InsereCPFValido();
+            PacienteForm.CPF = Entrada;
 
 
             /* NOME */
-            entrada = InsereNomeValido();
-            PacienteForm.Nome = entrada;
+            InsereNomeValido();
+            PacienteForm.Nome = Entrada;
 
 
             /* DATA DE NASCIMENTO */
-            entrada = InsereDataNascimentoValido();
-            PacienteForm.DataNascimento = entrada;
+            InsereDataNascimentoValida();
+            PacienteForm.DataNascimento = Entrada;
         }
-
-
         /********************************************
          *      Agendamento de uma consulta!       *
          *******************************************/
         public void InsereDadosConsulta()
         {
             ConsultaForm = new();
-            string entrada;
+            
 
 
             /* CPF DO PACIENTE */
-            entrada = InsereCPFValidoExistente(gerenciaPaciente,PacienteForm);
-            ConsultaForm.CPF = entrada;
+            InsereCPFValido();
+            ConsultaForm.CPF = Entrada;
 
 
             /* DATA DA CONSULTA */
-            entrada = InsereDataConsultaValida();
-            ConsultaForm.DataConsulta = entrada;
+            InsereDataConsultaValida();
+            ConsultaForm.DataConsulta = Entrada;
 
 
             /* HORAS INICIAL E FINAL */
@@ -71,11 +71,11 @@ namespace Consultorio.View
              * 2 p/ FINAL
              ****************/
             HORA:
-            entrada = InsereHoraValida(1);
-            ConsultaForm.HoraInicial = entrada;
+            InsereHoraValida(1);
+            ConsultaForm.HoraInicial = Entrada;
 
-            entrada = InsereHoraValida(2);
-            ConsultaForm.HoraFinal = entrada;
+            InsereHoraValida(2);
+            ConsultaForm.HoraFinal = Entrada;
 
             if (!ValidaAgendaForm.HoraValida(ConsultaForm.HoraInicial, ConsultaForm.HoraFinal))
             {
@@ -83,28 +83,25 @@ namespace Consultorio.View
                 goto HORA;
             }
         }
-
-
         /****************************************
          *    Cancelamento de uma consulta!     *
          ***************************************/
-        internal static ConsultaForm InsereDadosCancelamentoConsulta()
+        public void InsereDadosCancelamentoConsulta()
         {
-            string? entrada;
+            ConsultaForm = new();
+            
 
             /* CPF */
-            entrada = InsereCPFValidoExistente(gerenciaPaciente,PacienteForm);
-            ConsultaForm.CPF = entrada;
+            InsereCPFValido();
+            ConsultaForm.CPF = Entrada;
 
             /* DATA DA CONSULTA */
-            entrada = InsereDataConsultaValida();
-            ConsultaForm.DataConsulta = entrada;
+            InsereDataConsultaValida();
+            ConsultaForm.DataConsulta = Entrada;
 
             /* HORA INICIAL */
-            entrada = InsereHoraValida(1);
-            ConsultaForm.HoraInicial = entrada;
-
-            return ConsultaForm;
+            InsereHoraValida(1);
+            ConsultaForm.HoraInicial = Entrada;
         }
 
 
@@ -115,10 +112,9 @@ namespace Consultorio.View
         /***************************************
          * FUNÇÕES DE INSERÇÃO com VALIDAÇÃO!! *
          **************************************/
-        private static string InsereDataNascimentoValido()
+        public void InsereDataNascimentoValida()
         {
             bool v = true;
-            string? entrada;
 
             do
             {
@@ -126,17 +122,14 @@ namespace Consultorio.View
                     ViewMensagens.ExibeMensagemErroIdadePaciente();
 
                 Console.Write("Data de Nascimento: ");
-                entrada = Console.ReadLine();
+                Console.ReadLine();
 
-                v = PacienteForm.IsDataNascimento(entrada);
+                v = ValidaPacienteForm.IsDataNascimento(Entrada);
             } while (!v);
-
-            return entrada;
         }
-        public static string InsereNomeValido()
+        public void InsereNomeValido()
         {
             bool v = true;
-            string? entrada;
 
             do
             {
@@ -144,18 +137,15 @@ namespace Consultorio.View
                     ViewMensagens.ExibeMensagemErroNome();
 
                 Console.Write("Nome: ");
-                entrada = Console.ReadLine();
+                Console.ReadLine();
 
-                v = PacienteForm.IsNome(entrada);
+                v = ValidaPacienteForm.IsNome(Entrada);
             } while (!v);
-
-            return entrada;
         }
 
-        private string InsereCPFValido()
+        public void InsereCPFValido()
         {
             bool v = true;
-            string entrada;
 
             do
             {
@@ -163,12 +153,10 @@ namespace Consultorio.View
                     ViewMensagens.ExibeMensagemErroCPF();
 
                 Console.Write("\nCPF: ");
-                entrada = Console.ReadLine();
+                Console.ReadLine();
 
-                v = PacienteForm.ValidaCPF(entrada);
+                v = ValidaPacienteForm.ValidaCPF(Entrada);
             } while (!v);
-
-            return entrada;
         }
 
         /****************
@@ -176,9 +164,10 @@ namespace Consultorio.View
          * 1 p/ INICIAL
          * 2 p/ FINAL
          ****************/
-        internal static string InsereHoraValida(int s)
+        public void InsereHoraValida(int s)
         {
-            string? texto = null;
+            string texto = "";
+
             switch (s)
             {
                 case 1: texto = "inicial";
@@ -186,67 +175,59 @@ namespace Consultorio.View
                 case 2: texto = "final";
                     break;
             }
-
-            string? entrada;
+            
             do
             {
                 Console.Write($"Hora {texto}: ");
-                entrada = Console.ReadLine();
+                Console.ReadLine();
 
-            } while (!ValidaAgendaForm.ValidaHora(entrada, s));
-
-
-            return entrada;
+            } while (!ValidaAgendaForm.ValidaHora(Entrada, s));
         }
 
         /* 
          * FUNÇÃO PARA INSERÇÃO COM VERIFICAÇÃO DE DATA 
          * PARA AGENDAMENTO E CANCELAMENTO DE CONSULTAS.
          */
-        private static string InsereDataConsultaValida()
+        public void InsereDataConsultaValida()
         {
-            string? entrada;
             do
             {
                 Console.Write("Data da consulta: ");
-                entrada = Console.ReadLine();
+                Console.ReadLine();
 
-            } while (!ValidaAgendaForm.ValidaDataConsulta(entrada));
-
-            return entrada;
+            } while (!ValidaAgendaForm.ValidaDataConsulta(Entrada));
         }
 
 
         /* FUNÇÃO PARA INSERIR DATAS PARA LISTAGEM DA AGENDA POR PERÍODO */
-        internal static string[] InsereDataInicialFinalValida()
+        public string[] InsereDataInicialFinalValida()
         {
             string[] dataInicialFinal = new string[2];
-
-            string? entrada;
+            
             bool v = true;
             do
             {
                 if (!v)
                     ViewMensagens.ExibeMensagemErroData();
                 Console.Write("Data inicial: ");
-                entrada = Console.ReadLine();
+                Console.ReadLine();
 
-                v = ValidaAgendaForm.DataValida(entrada);
+                v = ValidaAgendaForm.DataValida(Entrada);
             } while (!v);
             
-            dataInicialFinal[0] = entrada;
+            dataInicialFinal[0] = Entrada;
             
             do
             {
                 if (!v)
                     ViewMensagens.ExibeMensagemErroData();
                 Console.Write("Data final: ");
-                entrada = Console.ReadLine();
+                Console.ReadLine();
 
-                v = ValidaAgendaForm.DataValida(entrada);
+                v = ValidaAgendaForm.DataValida(Entrada);
             } while (!v);
 
-            dataInicialFinal[1] = entrada;
+            dataInicialFinal[1] = Entrada;
 
             return dataInicialFinal;
         }
