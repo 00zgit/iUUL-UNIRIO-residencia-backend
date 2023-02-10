@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ConsultorioOdontoDB.Model.Form
 {
-    internal class ConsultaForm
+    public class ConsultaForm
     {
-        public string? CPF { get; set; }
-        public string? DataConsulta { get; set; }
-        public string? HoraInicial { get; set; }
-        public string? HoraFinal { get; set; }
+        public string CPF { get; set; }
+        public string DataConsulta { get; set; }
+        public string HoraInicial { get; set; }
+        public string HoraFinal { get; set; }
 
         public ConsultaForm() { }
     }

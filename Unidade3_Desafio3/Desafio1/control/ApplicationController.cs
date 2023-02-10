@@ -9,37 +9,36 @@ namespace ConsultorioOdontoDB
 {
     public class ApplicationController
     {
+        public ViewMenu viewMenu;
 
-
-        public ApplicationController() { }
+        public ApplicationController()
+        {
+            viewMenu = new ViewMenu();
+        }
 
 
         public void Start()
         {
-            int escolhaMenuPrincipal;
-            int? escolhaCadastroPaciente;
-            int? escolhaAgenda;
-            var vm = new ViewMenu();
+
         MENU:
-            escolhaCadastroPaciente = null;
-            escolhaAgenda = null;
+            viewMenu.Reset();
+            viewMenu.MenuPrincipal();
 
-            escolhaMenuPrincipal = vm.MenuPrincipal();
 
-            switch (escolhaMenuPrincipal)
+            switch (viewMenu.escolhaMenuPrincipal)
             {
                 case 1:
-                    escolhaCadastroPaciente = vm.MenuCadastroPaciente();
+                    viewMenu.MenuCadastroPaciente();
                     break;
                 case 2:
-                    escolhaAgenda = vm.MenuAgenda();
+                    viewMenu.MenuAgenda();
                     break;
                 default: return;
             }
 
-            if (escolhaCadastroPaciente != null)
+            if(viewMenu.escolhaCadastroPaciente != null)
             {
-                switch (escolhaCadastroPaciente)
+                switch (viewMenu.escolhaCadastroPaciente)
                 {
                     case 1:
                         {
@@ -65,13 +64,14 @@ namespace ConsultorioOdontoDB
                             lpc.ListagemPacienteNome();
                         }
                         break;
-                   default: break;
+                    default: break;
                 }
             }
+            
 
-            else if (escolhaAgenda != null)
+            else if(viewMenu.escolhaAgenda != null)
             {
-                switch (escolhaAgenda)
+                switch (viewMenu.escolhaAgenda)
                 {
                     case 1:
                         {
@@ -87,8 +87,8 @@ namespace ConsultorioOdontoDB
                         break;
                     case 3:
                         {
-                            int escolha = vm.MenuListagemAgenda();
-                            switch(escolha)
+                            viewMenu.MenuListagemAgenda();
+                            switch (viewMenu.escolhaListagemAgenda)
                             {
                                 case 1:
                                     {
@@ -107,13 +107,12 @@ namespace ConsultorioOdontoDB
                             }
                         }
                         break;
-                    default : break;
+                    default: break;
                 }
             }
+            
 
-            // Ao final de toda execução,
-            // voltaremos sempre ao menu principal
-            // resetando os valores das escolhas.
+            
             goto MENU;
         }
     }

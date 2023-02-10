@@ -7,9 +7,17 @@ using Consultorio.Validators;
 
 namespace Consultorio.View
 {
-    public class ViewMenu : IMenuViewValidavel
+    public class ViewMenu
     {
-        public int MenuPrincipal()
+        public int escolhaMenuPrincipal { get; private set; }
+        public int? escolhaCadastroPaciente { get; private set; }
+        public int? escolhaAgenda { get; private set; }
+        public int escolhaListagemAgenda { get; private set; }
+
+        public ViewMenu() { }
+
+
+        public void MenuPrincipal()
         {
             string? escolha;
             do
@@ -23,10 +31,10 @@ namespace Consultorio.View
             }
             while (!ValidaEscolha(escolha,3));
 
-            return int.Parse(escolha);
+            this.escolhaMenuPrincipal = int.Parse(escolha);
         }
 
-        public int MenuCadastroPaciente()
+        public void MenuCadastroPaciente()
         {
             string? escolha;
             do
@@ -42,10 +50,10 @@ namespace Consultorio.View
             }
             while (!ValidaEscolha(escolha, 5));
 
-            return int.Parse(escolha);
+            this.escolhaCadastroPaciente = int.Parse(escolha);
         }
 
-        public int MenuAgenda()
+        public void MenuAgenda()
         {
             string? escolha;
             do
@@ -60,10 +68,10 @@ namespace Consultorio.View
             }
             while (!ValidaEscolha(escolha, 4));
 
-            return int.Parse(escolha);
+            this.escolhaAgenda = int.Parse(escolha);
         }
 
-        public int MenuListagemAgenda()
+        public void MenuListagemAgenda()
         {
             string? escolha;
             do
@@ -77,10 +85,10 @@ namespace Consultorio.View
             }
             while (!ValidaEscolha(escolha, 3));
 
-            return int.Parse(escolha);
+            this.escolhaListagemAgenda = int.Parse(escolha);
         }
 
-        public bool ValidaEscolha(string? entrada, int tipoMenu)
+        private bool ValidaEscolha(string? entrada, int tipoMenu)
         {
             if(entrada == null) return false;
 
@@ -111,5 +119,11 @@ namespace Consultorio.View
                 default: return false;
             }
         }
-}
+
+        internal void Reset()
+        {
+            this.escolhaCadastroPaciente = null;
+            this.escolhaAgenda = null;
+        }
+    }
 }

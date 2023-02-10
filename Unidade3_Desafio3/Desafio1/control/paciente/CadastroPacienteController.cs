@@ -1,6 +1,6 @@
-﻿using Consultorio.Controller;
-using Consultorio.Model;
+﻿using Consultorio.Model;
 using Consultorio.View;
+using ConsultorioOdontoDB.control;
 using ConsultorioOdontoDB.Model.Form;
 using System;
 using System.Collections.Generic;
@@ -12,17 +12,25 @@ namespace ConsultorioOdontoDB.Controller
 {
     public class CadastroPacienteController
     {
-        public CadastroPacienteController() { }
+        public ViewCadastro ViewCadastro;
+
+        public CadastroPacienteController()
+        {
+            this.ViewCadastro = new();
+        }
+
 
         public void CadastramentoPaciente()
         {
-            PacienteForm pacienteForm = new();
+            ViewController.AbrirCadastroPaciente();
 
-            pacienteForm = ViewCadastro.CadastroPaciente(pacienteForm, gerenciaPaciente);
+            //dbcontext (verificar se cpf ja esta cadastrado no sist)
+            // se sim, cancelar operacao voltando para o menu.
 
-            Paciente p = new(pacienteForm.Nome, pacienteForm.CPF, DateTime.Parse(pacienteForm.DataNascimento));
+            // se não,
+            Paciente paciente = new(ViewCadastro.PacienteForm.Nome, ViewCadastro.PacienteForm.CPF, DateTime.Parse(ViewCadastro.PacienteForm.DataNascimento));
 
-            gerenciaPaciente.Pacientes.Add(p);
+            // db context (add e salvar).
 
             ViewMensagens.ExibeMensagemCadastroPaciente();
         }

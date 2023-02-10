@@ -11,28 +11,28 @@ namespace ConsultorioOdontoDB.Model.Form
 {
     public class PacienteForm : IPacienteValidavel
     {
-        public string? Nome { get; set; }
-        public string? CPF { get; set; }
-        public string? DataNascimento { get; set; }
+        public string Nome { get; set; }
+        public string CPF { get; set; }
+        public string DataNascimento { get; set; }
 
         public PacienteForm() { }
+
+
+
 
         /**********************/
         /* VALIDAÇÕES DE NOME */
         /**********************/
-        public bool IsNome(string? entrada)
+        public bool IsNome(string entrada)
         {
-            if (entrada == null) return false;
             return entrada.Length >= 5;
         }
 
         /************************************/
         /* VALIDAÇÕES DE DATA DE NASCIMENTO */
         /************************************/
-        public bool IsDataNascimento(string? entrada)
+        public bool IsDataNascimento(string entrada)
         {
-            if (entrada == null) return false;
-
             string format = "dd/MM/yyyy";
             DateTime DataFormatada;
             int AnoAtual, AnoNascimento;
@@ -56,9 +56,8 @@ namespace ConsultorioOdontoDB.Model.Form
         /*********************/
         /* VALIDAÇÕES DE CPF */
         /*********************/
-        public bool ValidaCPF(string? entrada)
+        public bool ValidaCPF(string entrada)
         {
-            if (entrada == null) return false;
             bool cpfValido = IsCPF(entrada);
             bool conversaoValida = ValidaConversaoCPF(entrada);
             if (!cpfValido || !conversaoValida)
