@@ -1,0 +1,1 @@
+- Este projeto seguiu a documentação da API no Swagger e dois documentos de requisitos do sistema. Fiquei responsável pelo desenvolvimento das APIs enviar email e validar cartão de crédito. Realizei refatorações do código, apliquei o princípio SOLID e revisei o código dos outros participantes.
